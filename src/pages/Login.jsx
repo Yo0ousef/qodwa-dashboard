@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
-import { LogIn } from 'lucide-react';
+import { LogIn, Loader2 } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -57,7 +57,12 @@ export default function Login() {
           </div>
 
           <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: '0.5rem', width: '100%' }}>
-            {loading ? 'جاري التحميل...' : (
+            {loading ? (
+              <>
+                <Loader2 size={20} className="animate-spin" />
+                <span>جاري التحميل...</span>
+              </>
+            ) : (
               <>
                 <LogIn size={20} />
                 <span>تسجيل الدخول</span>

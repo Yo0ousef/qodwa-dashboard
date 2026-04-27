@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { LogOut, Save, Plus, Trash2 } from 'lucide-react';
+import { LogOut, Save, Plus, Trash2, Loader2 } from 'lucide-react';
 
 export default function Dashboard({ session }) {
   const [table, setTable] = useState('Sa7aba');
@@ -11,6 +11,7 @@ export default function Dashboard({ session }) {
   const [records, setRecords] = useState([]);
   const [selectedRecordId, setSelectedRecordId] = useState('');
   const [fetchLoading, setFetchLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -118,6 +119,7 @@ export default function Dashboard({ session }) {
   };
 
   const handleLogout = async () => {
+    setLogoutLoading(true);
     await supabase.auth.signOut();
   };
 
@@ -178,9 +180,18 @@ export default function Dashboard({ session }) {
           <h1 style={{ fontSize: '1.5rem', color: 'var(--primary)', marginBottom: '0.25rem' }}>لوحة تحكم قدوة</h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>إضافة البيانات إلى التطبيق</p>
         </div>
-        <button onClick={handleLogout} className="btn-secondary">
-          <span>تسجيل الخروج</span>
-          <LogOut size={18} />
+        <button onClick={handleLogout} className="btn-secondary" disabled={logoutLoading}>
+          {logoutLoading ? (
+            <>
+              <span>جاري الخروج...</span>
+              <Loader2 size={18} className="animate-spin" />
+            </>
+          ) : (
+            <>
+              <span>تسجيل الخروج</span>
+              <LogOut size={18} />
+            </>
+          )}
         </button>
       </header>
 
