@@ -25,6 +25,7 @@ export default function Dashboard({ session }) {
 
   const [stories, setStories] = useState([]);
   const [resources, setResources] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     fetchRecords();
@@ -32,7 +33,7 @@ export default function Dashboard({ session }) {
 
   const fetchRecords = async () => {
     setFetchLoading(true);
-    const { data, error } = await supabase.from(table).select('id, name, nickname, lineage, looks, sons, death, stories, resources').order('name');
+    const { data, error } = await supabase.from(table).select('id, name, nickname, lineage, looks, sons, death, stories, resources, videos').order('name');
     if (!error && data) {
       setRecords(data);
     }
@@ -52,6 +53,7 @@ export default function Dashboard({ session }) {
     });
     setStories([]);
     setResources([]);
+    setVideos([]);
   };
 
   const handleSelectRecord = (e) => {
@@ -94,6 +96,17 @@ export default function Dashboard({ session }) {
         });
       }
       setResources(parsedResources);
+ 
+      const parsedVideos = [];
+      if (record.videos) {
+        Object.keys(record.videos).forEach(key => {
+          parsedVideos.push({
+            title: record.videos[key]?.title || '',
+            content: record.videos[key]?.content || ''
+          });
+        });
+      }
+      setVideos(parsedVideos);
     }
   };
 
@@ -150,6 +163,7 @@ export default function Dashboard({ session }) {
       death: formData.death,
       stories: convertToMap(stories),
       resources: convertToMap(resources),
+      videos: convertToMap(videos),
     };
 
     let errorMsg = null;
@@ -340,6 +354,40 @@ export default function Dashboard({ session }) {
                   />
                 </div>
                 <button type="button" onClick={() => removeDynamicItem(setResources, index)} className="btn-danger" title="حذف">
+                  <Trash2 size={20} />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Videos Section */}
+          <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+              <h2 style={{ fontSize: '1.25rem', color: 'var(--text-main)' }}>الفيديوهات (Videos)</h2>
+              <button type="button" onClick={() => addDynamicItem(setVideos)} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>
+                <Plus size={16} /> إضافة فيديو
+              </button>
+            </div>
+
+            {videos.length === 0 && <p className="form-help">لا توجد فيديوهات مضافة.</p>}
+
+            {videos.map((video, index) => (
+              <div key={index} className="dynamic-field-item">
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <input
+                    type="text"
+                    placeholder="عنوان الفيديو"
+                    value={video.title}
+                    onChange={(e) => handleDynamicChange(setVideos, index, 'title', e.target.value)}
+                  />
+                  <textarea
+                    placeholder="رابط الفيديو (YouTube ID)"
+                    value={video.content}
+                    onChange={(e) => handleDynamicChange(setVideos, index, 'content', e.target.value)}
+                    rows={2}
+                  />
+                </div>
+                <button type="button" onClick={() => removeDynamicItem(setVideos, index)} className="btn-danger" title="حذف">
                   <Trash2 size={20} />
                 </button>
               </div>
