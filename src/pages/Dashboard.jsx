@@ -96,7 +96,7 @@ export default function Dashboard({ session }) {
         });
       }
       setResources(parsedResources);
- 
+
       const parsedVideos = [];
       if (record.videos) {
         Object.keys(record.videos).forEach(key => {
@@ -260,33 +260,75 @@ export default function Dashboard({ session }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
             <div className="form-group">
-              <label className="form-label">اللقب <span style={{ color: 'var(--danger)' }}>*</span></label>
-              <input type="text" name="nickname" value={formData.nickname} onChange={handleInputChange} required />
+              <label htmlFor="nickname" className="form-label">اللقب <span style={{ color: 'var(--danger)' }}>*</span></label>
+              <textarea
+                id="nickname"
+                name="nickname"
+                placeholder="اللقب"
+                value={formData.nickname}
+                onChange={handleInputChange}
+                rows={1}
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">الاسم <span style={{ color: 'var(--danger)' }}>*</span></label>
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
+              <label htmlFor="name" className="form-label">الاسم <span style={{ color: 'var(--danger)' }}>*</span></label>
+              <textarea
+                id="name"
+                name="name"
+                placeholder="الاسم"
+                value={formData.name}
+                onChange={handleInputChange}
+                rows={1}
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">النسب <span style={{ color: 'var(--danger)' }}>*</span></label>
-              <input type="text" name="lineage" value={formData.lineage} onChange={handleInputChange} required />
+              <label htmlFor="lineage" className="form-label">النسب <span style={{ color: 'var(--danger)' }}>*</span></label>
+              <textarea
+                id="lineage"
+                name="lineage"
+                placeholder="النسب"
+                value={formData.lineage}
+                onChange={handleInputChange}
+                rows={1}
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">الصفات الشكلية</label>
-              <input type="text" name="looks" value={formData.looks} onChange={handleInputChange} />
+              <label htmlFor="looks" className="form-label">الصفات الشكلية</label>
+              <textarea
+                id="looks"
+                name="looks"
+                placeholder="الصفات الشكلية"
+                value={formData.looks}
+                onChange={handleInputChange}
+                rows={1}
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">الأبناء</label>
-              <input type="text" name="sons" value={formData.sons} onChange={handleInputChange} />
+              <label htmlFor="sons" className="form-label">الأبناء</label>
+              <textarea
+                id="sons"
+                name="sons"
+                placeholder="الأبناء"
+                value={formData.sons}
+                onChange={handleInputChange}
+                rows={3}
+              />
             </div>
 
             <div className="form-group">
-              <label className="form-label">الوفاة </label>
-              <input type="text" name="death" value={formData.death} onChange={handleInputChange} />
+              <label htmlFor="death" className="form-label">الوفاة</label>
+              <textarea
+                id="death"
+                name="death"
+                placeholder="الوفاة"
+                value={formData.death}
+                onChange={handleInputChange}
+                rows={3}
+              />
             </div>
           </div>
 
