@@ -17,6 +17,7 @@ export default function Dashboard({ session }) {
   const [formData, setFormData] = useState({
     nickname: '',
     name: '',
+    name_ui:'',
     lineage: '',
     looks: '',
     sons: '',
@@ -46,6 +47,7 @@ export default function Dashboard({ session }) {
     setFormData({
       nickname: '',
       name: '',
+      name_ui:'',
       lineage: '',
       looks: '',
       sons: '',
@@ -69,6 +71,7 @@ export default function Dashboard({ session }) {
       setFormData({
         nickname: record.nickname || '',
         name: record.name || '',
+        name_ui: record.name_ui || '',
         lineage: record.lineage || '',
         looks: record.looks || '',
         sons: record.sons || '',
@@ -157,6 +160,7 @@ export default function Dashboard({ session }) {
     const payload = {
       nickname: formData.nickname,
       name: formData.name,
+      name_ui: formData.name_ui,
       lineage: formData.lineage,
       looks: formData.looks,
       sons: formData.sons,
@@ -278,6 +282,17 @@ export default function Dashboard({ session }) {
                 name="name"
                 placeholder="الاسم"
                 value={formData.name}
+                onChange={handleInputChange}
+                rows={1}
+              />
+            </div>
+              <div className="form-group">
+              <label htmlFor="name_ui" className="form-label">الاسم للواجهة </label>
+              <textarea
+                id="name_ui"
+                name="name_ui"
+                placeholder="الاسم للواجهة (يُستخدم إذا كان مختلفًا عن الاسم الأصلي)"
+                value={formData.name_ui}
                 onChange={handleInputChange}
                 rows={1}
               />
