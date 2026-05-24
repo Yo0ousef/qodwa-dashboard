@@ -287,11 +287,11 @@ export default function Dashboard({ session }) {
               />
             </div>
               <div className="form-group">
-              <label htmlFor="name_ui" className="form-label">الاسم للواجهة </label>
+              <label htmlFor="name_ui" className="form-label">الاسم للواجهة<span style={{ color: 'var(--danger)' }}>*</span></label>
               <textarea
                 id="name_ui"
                 name="name_ui"
-                placeholder="الاسم للواجهة (يُستخدم إذا كان مختلفًا عن الاسم الأصلي)"
+                placeholder="الاسم الذي يظهر في جميع الواجهات و بدونه لن تتمكن من إضافة شخصية"
                 value={formData.name_ui}
                 onChange={handleInputChange}
                 rows={1}
